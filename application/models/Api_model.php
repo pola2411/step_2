@@ -69,7 +69,7 @@ class Api_model extends CI_Model
 		foreach ($instructors as $key => $instructor) {
 			$all_instructors[$key] = $instructor;
 		}
-		return $query;
+		return "as";
 	}
 
 	// Get categories
