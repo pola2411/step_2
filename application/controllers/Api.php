@@ -136,7 +136,6 @@ class Api extends REST_Controller {
 
   $course_ids=$course_id;
   $type =$types;
-  $this->session->set_flashdata('error_message', 'Invalid input');
 
     $this->load->library('session');
     if (empty($auth_token) || empty($course_ids)) {
@@ -200,7 +199,7 @@ private function initialize_user_session($user, $app_url)
 private function handle_cart_items($ids, $type)
 {
 
-    $cart_items = $this->session->userdata('cart_items') ?? [];
+    $cart_items  =[];
     foreach ($ids as $key=>$id) {
         if (!in_array($id, $cart_items)) {
           $cart_items[] = ['id' => $id, 'type' => $type[$key]];
