@@ -3106,7 +3106,6 @@ class Crud_model extends CI_Model
     public function get_user_insta($user_id=""){
         if ($user_id == "") {
             $user_id = $this->session->userdata('user_id');
-            return $user_id;
         }
         $user_details = $this->user_model->get_user($user_id)->row_array();
         return $user_details;
