@@ -62,7 +62,7 @@ class Api_model extends CI_Model
 		
 		$user = $this->crud_model->get_user_insta($user_id);
 		// If user details are found, return the subcat field
-		if ($user !=null) {
+		if ($user !="") {
 			return 'asaf';
 			$subcat = $user['subcat'];
 			// Retrieve courses where sub_category_id matches the user's subcat
