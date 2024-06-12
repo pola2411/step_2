@@ -2451,6 +2451,23 @@ class Crud_model extends CI_Model
         }
         //move_uploaded_file($_FILES['favicon']['tmp_name'], 'uploads/system/favicon.png');
     }
+    public function get_user_insta($user_id = "") {
+        // If no user ID is passed, retrieve it from the session
+        if (empty($user_id)) {
+            $user_id = $user_id;
+        }
+        // Fetch user details from the database
+        $this->db->where('id', $user_id);
+        $query = $this->db->get('users');
+    
+        // Return the user details as an associative array if found, otherwise return false
+        if ($query->num_rows() > 0) {
+            return $query->row_array();
+        } else {
+            return false;
+        }
+    }
+    
 
     public function handleWishList($course_id)
     {
@@ -3103,13 +3120,7 @@ class Crud_model extends CI_Model
             return array('rating' => 0);
         }
     }
-    public function get_user_insta($user_id=""){
-        if ($user_id == "") {
-            $user_id = $this->session->userdata('user_id');
-        }
-        $user_details = $this->user_model->get_user($user_id)->row_array();
-        return $user_details;
-    }
+
 
     public function get_ratings($ratable_type = "", $ratable_id = "", $is_sum = false)
     {

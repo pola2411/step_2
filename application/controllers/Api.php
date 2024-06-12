@@ -1,5 +1,7 @@
 <?php
 
+use GuzzleHttp\Psr7\Response;
+
 use function PHPUnit\Framework\isEmpty;
 
 require APPPATH . '/libraries/TokenHandler.php';
@@ -283,9 +285,16 @@ private function fetch_item_details($id, $type)
 
   // Fetch all the categories
   public function all_instructor_get() {
-    $categories = array();
-    $categories = $this->api_model->all_instructor_get();
-    $this->set_response($categories, REST_Controller::HTTP_OK);
+    $response = array();
+    $auth_token = $_GET['auth_token'];
+    $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
+
+    if ($logged_in_user_details['user_id'] > 0) {
+      $response = $this->api_model->all_instructor_get($logged_in_user_details['user_id']);
+    }else{
+      $response=$this->api_model->all_instructor_get("");
+    }
+    $this->set_response($response, REST_Controller::HTTP_OK);
   }
 
   public function categories_get($category_id = "") {

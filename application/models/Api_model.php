@@ -59,12 +59,12 @@ class Api_model extends CI_Model
 
 	public function all_instructor_get($user_id="") {
 		// Retrieve user details
-		
 		$user = $this->crud_model->get_user_insta($user_id);
+
+		$subcat = $user['subcat'];
 		// If user details are found, return the subcat field
-		if ($user !="") {
-			$subcat = $user['subcat'];
-			// Retrieve courses where sub_category_id matches the user's subcat
+		if ($subcat !=null) {
+					// Retrieve courses where sub_category_id matches the user's subcat
 		      // Retrieve courses where sub_category_id matches the user's subcat and group by user
 			  $this->db->select('users.*');
 			  $this->db->from('course');
