@@ -136,6 +136,7 @@ class Api extends REST_Controller {
 
   $course_ids=$course_id;
   $type =$types;
+  $this->session->set_flashdata('error_message', 'Invalid input');
 
     $this->load->library('session');
     if (empty($auth_token) || empty($course_ids)) {

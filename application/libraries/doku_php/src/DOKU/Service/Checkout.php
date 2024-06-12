@@ -4,7 +4,7 @@ namespace DOKU\Service;
 
 use DOKU\Common\PaycodeGeneratorCc;
 
-class Checkout
+class 
 {
     public static function generated($config, $params)
     {
