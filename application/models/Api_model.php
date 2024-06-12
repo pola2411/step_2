@@ -57,11 +57,8 @@ class Api_model extends CI_Model
 		return $categories;
 	}
 
-	function all_instructor_get($user_id=""){
-		if($user_id !=""){
-			$query = $this->db->get_where('users', array('id' => $user_id));
-			$row = $query->row_array();
-		}
+	function all_instructor_get(){
+		$users=$this->crud_model->get_instractor()->row_array();	
 		$all_instructors = array();
 
 		$this->db->where('is_instructor', 1);
@@ -69,7 +66,7 @@ class Api_model extends CI_Model
 		foreach ($instructors as $key => $instructor) {
 			$all_instructors[$key] = $instructor;
 		}
-		return "as";
+		return $users;
 	}
 
 	// Get categories

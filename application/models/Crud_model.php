@@ -2817,6 +2817,14 @@ class Crud_model extends CI_Model
         $this->session->set_flashdata('flash_message', get_phrase('student_has_been_enrolled'));
     }
 
+    public function get_instractor(){
+        if ($this->session->userdata('user_login') == 1) {
+        $user_details = $this->user_model->get_user($this->session->userdata('user_id'))->row_array();
+        return $user_details;
+        }else{
+            return false;
+        }
+    }
 
     public function enrol_section_student_manually()
     {
