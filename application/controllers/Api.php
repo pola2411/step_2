@@ -287,7 +287,7 @@ private function fetch_item_details($id, $type)
   public function all_instructor_get() {
     $response = array();
     $auth_token = $_GET['auth_token'];
-    $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
+    $logged_in_user_details = json_decode($this->token_data_get2($auth_token), true);
 
     if ($logged_in_user_details['user_id'] > 0) {
       $response = $this->api_model->all_instructor_get($logged_in_user_details['user_id']);
@@ -714,6 +714,26 @@ private function fetch_item_details($id, $type)
       }
     }else{
       echo json_encode(array( "status" => false, "message" => "Invalid Token"));
+    }
+  }
+  public function token_data_get2($auth_token)
+  {
+    //$received_Token = $this->input->request_headers('Authorization');
+    if (isset($auth_token)) {
+      try
+      {
+
+        $jwtData = $this->tokenHandler->DecodeToken($auth_token);
+        return json_encode($jwtData);
+      }
+      catch (Exception $e)
+      {
+        echo 'catch';
+        http_response_code('401');
+        echo json_encode(array( "status" => false, "message" => $e->getMessage()));
+        exit;
+      }
+    }else{
     }
   }
 
