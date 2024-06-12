@@ -65,13 +65,15 @@ class Api_model extends CI_Model
 		if ($user !=null) {
 			$subcat = $user['subcat'];
 			// Retrieve courses where sub_category_id matches the user's subcat
-			$this->db->select('users.*');
-			$this->db->from('course');
-			$this->db->join('users', 'course.user_id = users.id');
-			$this->db->where('course.sub_category_id', $subcat);
-			$courses = $this->db->get()->result_array();
-	
-			return $courses;
+		      // Retrieve courses where sub_category_id matches the user's subcat and group by user
+			  $this->db->select('users.*');
+			  $this->db->from('course');
+			  $this->db->join('users', 'course.user_id = users.id');
+			  $this->db->where('course.sub_category_id', $subcat);
+			  $this->db->group_by('course.user_id');  // Group by user_id
+			  $courses = $this->db->get()->result_array();
+			  return $courses;
+
 		}
 		// If user details are not found, fetch all instructors
 		$all_instructors = array();
