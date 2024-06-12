@@ -57,17 +57,34 @@ class Api_model extends CI_Model
 		return $categories;
 	}
 
-	function all_instructor_get(){
-		$users=$this->crud_model->get_instractor()->row_array();	
+	public function all_instructor_get($user_id="") {
+		// Retrieve user details
+		
+		$user = $this->crud_model->get_user_insta($user_id);
+		// If user details are found, return the subcat field
+		if ($user !=null) {
+			$subcat = $user['subcat'];
+			// Retrieve courses where sub_category_id matches the user's subcat
+			$this->db->select('users.*');
+			$this->db->from('course');
+			$this->db->join('users', 'course.user_id = users.id');
+			$this->db->where('course.sub_category_id', $subcat);
+			$courses = $this->db->get()->result_array();
+	
+			return $courses;
+		}
+		// If user details are not found, fetch all instructors
 		$all_instructors = array();
-
 		$this->db->where('is_instructor', 1);
 		$instructors = $this->db->get('users')->result_array();
+	
 		foreach ($instructors as $key => $instructor) {
 			$all_instructors[$key] = $instructor;
 		}
-		return $users;
+	
+		return $instructors;
 	}
+	
 
 	// Get categories
 	public function categories_get($category_id)

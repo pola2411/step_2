@@ -2817,15 +2817,7 @@ class Crud_model extends CI_Model
         $this->session->set_flashdata('flash_message', get_phrase('student_has_been_enrolled'));
     }
 
-    public function get_instractor(){
-        if ($this->session->userdata('user_login') == 1) {
-        $user_details = $this->user_model->get_user($this->session->userdata('user_id'))->row_array();
-        return $user_details;
-        }else{
-            return false;
-        }
-    }
-
+   
     public function enrol_section_student_manually()
     {
         $users_id   = $this->input->post('user_id');
@@ -3110,6 +3102,14 @@ class Crud_model extends CI_Model
         } else {
             return array('rating' => 0);
         }
+    }
+    public function get_user_insta($user_id=""){
+        if ($user_id == "") {
+            $user_id = $this->session->userdata('user_id');
+            return $user_id;
+        }
+        $user_details = $this->user_model->get_user($user_id)->row_array();
+        return $user_details;
     }
 
     public function get_ratings($ratable_type = "", $ratable_id = "", $is_sum = false)
