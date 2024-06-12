@@ -525,6 +525,8 @@ class Api_model extends CI_Model
 	    $data['password'] = sha1($_POST['password']);
 	    $verification_code = rand(100000, 999999);
 	    $data['verification_code'] = $verification_code;
+	    $data['category_id'] = $_POST['category_id'];
+	    $data['subcat'] = $_POST['subcat'];
 
 	    if (get_settings('student_email_verification') == 'enable') {
             $data['status'] = 0;
