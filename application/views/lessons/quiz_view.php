@@ -78,7 +78,7 @@
                                     
                                 <?php endforeach; ?>
                             </select>
-                            <small class="text-muted"><?php echo site_phrase('select_a_student_to_view_the_answer_sheet'); ?>wdqqwdq</small>
+                            <small class="text-muted"><?php echo site_phrase('select_a_student_to_view_the_answer_sheet'); ?></small>
                         </div>
                     </div>
                     <div class="col-12 pt-4" id="viewAnswerSheet"></div>
@@ -141,6 +141,7 @@
             url: "<?php echo site_url('home/view_answer_sheet/'); ?>/"+quiz_result_id,
             type: 'post',
             success: function(response){
+                console.log(response);
                 $('#viewAnswerSheet').html(response);
             }
         });
