@@ -37,9 +37,7 @@ class Api_model extends CI_Model
 		}
 	
 		// Select relevant fields from quiz_results and lesson tables
-		$this->db->select('quiz_results.quiz_result_id,quiz_results.is_submitted,quiz_results.course_id,
-		,quiz_results.total_obtained_marks,lesson.attachment,lesson.id
-		');
+		$this->db->select('quiz_results.quiz_result_id, quiz_results.is_submitted, quiz_results.course_id, quiz_results.total_obtained_marks, lesson.attachment, lesson.id');
 		$this->db->from('quiz_results');
 		$this->db->join('lesson', 'quiz_results.quiz_id = lesson.id');
 		$this->db->where('quiz_results.user_id', $user_id);
@@ -48,7 +46,7 @@ class Api_model extends CI_Model
 		$result = $this->db->get()->result_array();
 		return $result;
 	}
-	
+		
 	function all_categories_get(){
 		$all_categories = array();
 		$this->db->where('parent', 0);
