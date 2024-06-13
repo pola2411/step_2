@@ -127,8 +127,7 @@
             url: "<?php echo site_url('user/start_quiz/'.$lesson_details['id']); ?>",
             type: 'post',
             success: function(response){
-                console.log(response);
-
+                
                 $('#quiz_answer_sheet').html(response);
             }
         });
@@ -143,7 +142,6 @@
             url: "<?php echo site_url('home/view_answer_sheet/'); ?>/"+quiz_result_id,
             type: 'post',
             success: function(response){
-                console.log(response);
                 $('#viewAnswerSheet').html(response);
             }
         });
