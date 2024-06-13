@@ -31,13 +31,22 @@ class Api_model extends CI_Model
 		return $result;
 	}
 	public function get_results_by_user_id($user_id = "") {
-		$this->db->select('quiz_results.*','lesson.attachment');
+		// Ensure the user_id is provided, either through argument or session
+		if (empty($user_id)) {
+			$user_id = $this->session->userdata('user_id');
+		}
+	
+		// Select relevant fields from quiz_results and lesson tables
+		$this->db->select('quiz_results.*, lesson.*');
 		$this->db->from('quiz_results');
 		$this->db->join('lesson', 'quiz_results.quiz_id = lesson.id');
 		$this->db->where('quiz_results.user_id', $user_id);
-		$courses = $this->db->get()->result_array();
-		return $courses;	
+		
+		// Execute the query and return the result as an array
+		$result = $this->db->get()->result_array();
+		return $result;
 	}
+	
 	function all_categories_get(){
 		$all_categories = array();
 		$this->db->where('parent', 0);
