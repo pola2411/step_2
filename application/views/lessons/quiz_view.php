@@ -29,7 +29,6 @@
     <?php $preloaded_result_id = $this->db->get_where('quiz_results', ['user_id' => $_GET['student_id'], 'quiz_id' => $quiz_id])->row('quiz_result_id'); ?>
 <?php endif; ?>
 
-
 <link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/lessons/flipclock-timer/flipclock.css'); ?>">
 <script type="text/javascript" src="<?php echo site_url('assets/lessons/flipclock-timer/flipclock.min.js'); ?>"></script>
 
@@ -76,6 +75,7 @@
                                     $student_details = $this->user_model->get_all_user($participant_student['user_id'])->row_array();
                                 ?>
                                     <option value="<?php echo $participant_student['quiz_result_id']; ?>" <?php if(isset($preloaded_result_id) && $preloaded_result_id == $participant_student['quiz_result_id']) echo 'selected'; ?>><?php echo $student_details['first_name'].' '.$student_details['last_name']; ?></option>
+                               <a href="">Delete</a>
                                 <?php endforeach; ?>
                             </select>
                             <small class="text-muted"><?php echo site_phrase('select_a_student_to_view_the_answer_sheet'); ?></small>

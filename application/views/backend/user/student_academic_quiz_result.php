@@ -6,7 +6,7 @@
 				<b>Q<?php echo ++$key.'. '; ?></b>
 				<span class="d-inline-block float-right"><?php echo get_phrase('Total Marks') ?>: <b><?php echo json_decode($quiz['attachment'])->total_marks; ?></b></span>
 			</p>
-			<p><?php echo $quiz['title']; ?></p>
+			<p><?php echo $quiz['title']; ?> </p>
 
 
 			<?php $quiz_results = $this->db->order_by('quiz_result_id', 'asc')->where('quiz_id', $quiz['id'])->where('user_id', $student_id)->get('quiz_results'); ?>
@@ -26,7 +26,7 @@
 				<?php endforeach; ?>
 			</p>
 
-			<a class="btn btn-primary btn-sm mt-3" href="<?php echo site_url('home/lesson/'.slugify($course_details['title']).'/'.$course_details['id'].'/'.$quiz['id'].'?student_id='.$student_id); ?>" target="_blank"><?php echo get_phrase('Go to answer sheet'); ?></a>
+			<a class="btn btn-primary btn-sm mt-3" href="<?php echo site_url('home/lesson/'.slugify($course_details['title']).'/'.$course_details['id'].'/'.$quiz['id'].'?student_id='.$student_id); ?>" target="_blank"><?php echo get_phrase('Go to answer sheet'); ?> </a>
 		</div>
 	<?php endforeach; ?>
 </div>
