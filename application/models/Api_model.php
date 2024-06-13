@@ -32,12 +32,9 @@ class Api_model extends CI_Model
 	}
 	public function get_results_by_user_id($user_id = "") {
 		// Ensure the user_id is provided, either through argument or session
-		if (empty($user_id)) {
-			$user_id = $this->session->userdata('user_id');
-		}
 	
 		// Select relevant fields from quiz_results and lesson tables
-		$this->db->select('quiz_results.quiz_result_id, quiz_results.is_submitted, quiz_results.course_id, quiz_results.total_obtained_marks, lesson.attachment, lesson.id');
+		$this->db->select('quiz_results.*,lesson.attachment, lesson.id');
 		$this->db->from('quiz_results');
 		$this->db->join('lesson', 'quiz_results.quiz_id = lesson.id');
 		$this->db->where('quiz_results.user_id', $user_id);
