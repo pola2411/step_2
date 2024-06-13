@@ -75,10 +75,10 @@
                                     $student_details = $this->user_model->get_all_user($participant_student['user_id'])->row_array();
                                 ?>
                                     <option value="<?php echo $participant_student['quiz_result_id']; ?>" <?php if(isset($preloaded_result_id) && $preloaded_result_id == $participant_student['quiz_result_id']) echo 'selected'; ?>><?php echo $student_details['first_name'].' '.$student_details['last_name']; ?></option>
-                               <a href="">Delete</a>
+                                    
                                 <?php endforeach; ?>
                             </select>
-                            <small class="text-muted"><?php echo site_phrase('select_a_student_to_view_the_answer_sheet'); ?></small>
+                            <small class="text-muted"><?php echo site_phrase('select_a_student_to_view_the_answer_sheet'); ?>wdqqwdq</small>
                         </div>
                     </div>
                     <div class="col-12 pt-4" id="viewAnswerSheet"></div>
