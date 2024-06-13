@@ -37,7 +37,9 @@ class Api_model extends CI_Model
 		}
 	
 		// Select relevant fields from quiz_results and lesson tables
-		$this->db->select('quiz_results.*, lesson.*');
+		$this->db->select('quiz_results.quiz_result_id,quiz_results.is_submitted,quiz_results.course_id,
+		,quiz_results.total_obtained_marks,lesson.attachment
+		');
 		$this->db->from('quiz_results');
 		$this->db->join('lesson', 'quiz_results.quiz_id = lesson.id');
 		$this->db->where('quiz_results.user_id', $user_id);
