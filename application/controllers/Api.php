@@ -360,10 +360,26 @@ private function fetch_item_details($id, $type)
     }else{
       $response = array();
     }
-
-    
     return $this->set_response($response, REST_Controller::HTTP_OK);
   }
+
+  //////////////
+
+  public function fetch_results_get() {
+    $response = array();
+    $auth_token = $_GET['auth_token'];
+    $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
+    
+    if (isset($logged_in_user_details['user_id']) && $logged_in_user_details['user_id'] > 0) {
+        $user_id = $logged_in_user_details['user_id'];
+        $response = $this->api_model->get_results_by_user_id($user_id);
+    } else {
+        $response = $this->api_model->get_results_by_user_id("");
+    }
+    
+    $this->set_response($response, REST_Controller::HTTP_OK);
+}
+
 
   
 

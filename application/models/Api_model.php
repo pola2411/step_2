@@ -30,7 +30,14 @@ class Api_model extends CI_Model
 		$result = $this->course_data($top_courses);
 		return $result;
 	}
-
+	public function get_results_by_user_id($user_id = "") {
+		$this->db->select('quiz_results.*','lesson.attachment');
+		$this->db->from('quiz_results');
+		$this->db->join('lesson', 'quiz_results.quiz_id = lesson.id');
+		$this->db->where('quiz_results.user_id', $user_id);
+		$courses = $this->db->get()->result_array();
+		return $courses;	
+	}
 	function all_categories_get(){
 		$all_categories = array();
 		$this->db->where('parent', 0);
