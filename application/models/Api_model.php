@@ -30,17 +30,23 @@ class Api_model extends CI_Model
 		$result = $this->course_data($top_courses);
 		return $result;
 	}
-	public function get_results_by_user_id($user_id = "") {
+	public function get_results_by_user_id($user_id = "",$child_id="") {
 		// Ensure the user_id is provided, either through argument or session
 		if (empty($user_id)) {
 			$user_id = $this->session->userdata('user_id');
 		}
-	
+		$global_id=0;
+		if($child_id==""){
+			$global_id=$user_id;
+		}else{
+			$global_id=$child_id;
+
+		}
 		// Select relevant fields from quiz_results and lesson tables
 		$this->db->select('quiz_results.*, lesson.attachment, lesson.id as lesson_id,lesson.title,lesson.lesson_type');
 		$this->db->from('quiz_results');
 		$this->db->join('lesson', 'quiz_results.quiz_id = lesson.id');
-		$this->db->where('quiz_results.user_id', $user_id);
+		$this->db->where('quiz_results.user_id', $global_id);
 		
 		// Execute the query and return the result as an array
 		$results = $this->db->get()->result_array();
