@@ -111,6 +111,24 @@ class Api_model extends CI_Model
 	
 		return $instructors;
 	}
+	public function childrens_get($user_id="") {
+		// Retrieve user details
+		$user = $this->crud_model->get_user_insta($user_id);
+
+		$all_instructors = array();
+
+		   $this->db->select('users.*');
+		   $this->db->from('users');
+		   $this->db->join('chaildren', 'users.id = chaildren.children_id');
+		   $this->db->where('chaildren.user_id', $user_id);
+		   $courses = $this->db->get()->result_array();
+	
+		foreach ($courses as $key => $instructor) {
+			$all_instructors[$key] = $instructor;
+		}
+	
+		return $all_instructors;
+	}
 	
 
 	// Get categories

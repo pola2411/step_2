@@ -297,6 +297,20 @@ private function fetch_item_details($id, $type)
     $this->set_response($response, REST_Controller::HTTP_OK);
   }
 
+  public function childrens_get() {
+    $response = array();
+    $auth_token = $_GET['auth_token'];
+    $logged_in_user_details = json_decode($this->token_data_get2($auth_token), true);
+
+    if ($logged_in_user_details['user_id'] > 0) {
+      $response = $this->api_model->childrens_get($logged_in_user_details['user_id']);
+    }else{
+      $response=$this->api_model->childrens_get("");
+    }
+    $this->set_response($response, REST_Controller::HTTP_OK);
+  }
+  
+
   public function categories_get($category_id = "") {
     $categories = array();
     $categories = $this->api_model->categories_get($category_id);

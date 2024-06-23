@@ -1,5 +1,7 @@
 <?php
     $user_data = $this->db->get_where('users', array('id' => $user_id))->row_array();
+    $user_chaldren=$this->db->where('user_id', $user_id)->get('chaildren')->result_array();
+ 
     $social_links = json_decode($user_data['social_links'], true);
     $payment_keys = json_decode($user_data['payment_keys'], true);
     $paypal_keys = $payment_keys['paypal'];
@@ -125,7 +127,7 @@
                                                 <label for="multiple_course_id1"><?php echo get_phrase('category'); ?><span class="required">*</span> </label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="select2 form-control select2-multiple" data-toggle="select2" onchange="loadSections()" data-placeholder="Choose ..." name="category_id" id="multiple_course_id1" required>
+                                                <select class="select2 form-control select2-multiple" data-toggle="select2" onchange="loadSections()" data-placeholder="Choose ..." name="category_id" id="multiple_course_id1" >
                                                     <option value=""><?php echo get_phrase('select_a_category'); ?></option>
                                                     <?php foreach ($categories as $category) : ?>
                                                         <option value="<?php echo $category['id'] ?>" <?php if($user_data['category_id'] == $category['id']) echo 'selected'; ?>><?php echo $category['name']; ?></option>
@@ -138,12 +140,15 @@
                                                 <label for="multiple_course_id2 "><?php echo get_phrase('select_level'); ?><span class="required">*</span> </label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="subcat" id="multiple_course_id2" required>
+                                                <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="subcat" id="multiple_course_id2" >
                                                     <option value=""><?php echo get_phrase('select_level'); ?></option>
 
                                                 </select>
                                             </div>
                                         </div>
+
+                                        
+
                                     </div> <!-- end col -->
                                 </div> <!-- end row -->
                             </div>
@@ -258,9 +263,18 @@
     </div>
 </div>
 <script>
+        $(document).ready(function() {
+            $('.server-side-select2').select2({
+                placeholder: "Select children",
+                allowClear: true
+            });
+        });
+    </script>
+<script>
     $(document).ready(function() {
         loadSections();
     });
+    
 
     function loadSections() {
         var course_id = $('#multiple_course_id1').val();

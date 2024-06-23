@@ -2460,6 +2460,19 @@ class Admin extends CI_Controller
         }
         echo json_encode($response);
     }
+
+    function get_select2_user_parent($default = "")
+    {
+        $response = array();
+        $result = $this->db->where('role_id !=', 1)->where('parent_id =',0)->group_start()->like('first_name', $_GET['searchVal'])->or_like('last_name', $_GET['searchVal'])->or_like('email', $_GET['searchVal'])->group_end()->limit(100)->get('users')->result_array();
+        if ($default != '') {
+            $response[] = array(['id' => $default, 'text' => get_phrase($default)]);
+        }
+        foreach ($result as $key => $row) {
+            $response[] = ['id' => $row['id'], 'text' => $row['first_name'] . ' ' . $row['last_name'] . '(' . $row['email'] . ')'];
+        }
+        echo json_encode($response);
+    }
     //Select 2 server-side user data
     function get_select2_instructor_data($default = "")
     {

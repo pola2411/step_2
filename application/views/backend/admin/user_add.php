@@ -109,7 +109,7 @@
                                                 <label for="multiple_course_id1"><?php echo get_phrase('category'); ?><span class="required">*</span> </label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="select2 form-control select2-multiple" data-toggle="select2" onchange="loadSections()" data-placeholder="Choose ..." name="category_id" id="multiple_course_id1" required>
+                                                <select class="select2 form-control select2-multiple" data-toggle="select2" onchange="loadSections()" data-placeholder="Choose ..." name="category_id" id="multiple_course_id1">
                                                     <option value=""><?php echo get_phrase('select_a_category'); ?></option>
                                                     <?php foreach ($categories as $category) : ?>
                                                         <option value="<?php echo $category['id'] ?>"><?php echo $category['name']; ?></option>
@@ -122,9 +122,18 @@
                                                 <label for="multiple_course_id2 "><?php echo get_phrase('select_level'); ?><span class="required">*</span> </label>
                                             </div>
                                             <div class="col-md-9">
-                                                <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="subcat" id="multiple_course_id2" required>
+                                                <select class="select2 form-control select2-multiple" data-toggle="select2" data-placeholder="Choose ..." name="subcat" id="multiple_course_id2">
                                                     <option value=""><?php echo get_phrase('select_level'); ?></option>
 
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row mb-3">
+                                            <div class="col-3">
+                                                <label for="multiple_user_id"><?php echo get_phrase('children'); ?><span class="required">*</span> </label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <select class="server-side-select2" action="<?php echo base_url('admin/get_select2_user_parent'); ?>" name="user_id[]" multiple="multiple" required>
                                                 </select>
                                             </div>
                                         </div>

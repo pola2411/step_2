@@ -43,6 +43,7 @@ class User_model extends CI_Model
 
     public function add_user($is_instructor = false, $is_admin = false,$inst_id=false)
     {
+       
         $validity = $this->check_duplication('on_create', $this->input->post('email'));
         if ($validity == false) {
             $this->session->set_flashdata('error_message', get_phrase('email_duplication'));
@@ -65,6 +66,12 @@ class User_model extends CI_Model
                 $data['instractor_id'] = $this->session->userdata('user_id');
 
             }
+           
+            if($this->input->post('user_id')){
+                $data['parent_id'] = 1;
+            }
+       
+            
 
             if ($is_admin) {
                 $data['role_id'] = 1;
@@ -87,8 +94,23 @@ class User_model extends CI_Model
                 $data['is_instructor'] = 1;
             }
 
-            $this->db->insert('users', $data);
+           $parant_id= $this->db->insert('users', $data);
             $user_id = $this->db->insert_id();
+          
+            if($this->input->post('user_id')){
+               
+                $users=$this->input->post('user_id');
+                foreach ($users as $user) {
+                    $chaldren['user_id'] = $user_id;
+
+                    $chaldren['children_id'] = $user;
+                    $this->db->insert('chaildren', $chaldren);
+
+
+                    
+                }
+
+            }
          //   $this->user_model->update_unique_identifier($user_id);
 
             // IF THIS IS A USER THEN INSERT BLANK VALUE IN PERMISSION TABLE AS WELL
