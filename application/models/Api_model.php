@@ -687,10 +687,17 @@ class Api_model extends CI_Model
   	}
 
 	// My Courses
-	public function my_courses_get($user_id = "")
+	public function my_courses_get($user_id = "",$child_id="")
 	{
+		$global_id=0;
+		if($child_id==""){
+			$global_id=$user_id;
+		}else{
+			$global_id=$child_id;
+
+		}
 		$my_courses = array();
-		$my_courses_ids = $this->user_model->my_courses($user_id)->result_array();
+		$my_courses_ids = $this->user_model->my_courses($global_id)->result_array();
 		foreach ($my_courses_ids as $my_courses_id) {
 			$course_details = $this->crud_model->get_course_by_id($my_courses_id['course_id'])->row_array();
 			array_push($my_courses, $course_details);
@@ -698,9 +705,9 @@ class Api_model extends CI_Model
 		$my_courses = $this->course_data($my_courses);
 		foreach ($my_courses as $key => $my_course) {
 			if (isset($my_course['id']) && $my_course['id'] > 0) {
-				$my_courses[$key]['completion'] = round(course_progress($my_course['id'], $user_id));
+				$my_courses[$key]['completion'] = round(course_progress($my_course['id'], $global_id));
 				$my_courses[$key]['total_number_of_lessons'] = $this->crud_model->get_lessons('course', $my_course['id'])->num_rows();
-				$my_courses[$key]['total_number_of_completed_lessons'] = $this->get_completed_number_of_lesson($user_id, 'course', $my_course['id']);
+				$my_courses[$key]['total_number_of_completed_lessons'] = $this->get_completed_number_of_lesson($global_id, 'course', $my_course['id']);
 			}
 		}
 		return $my_courses;

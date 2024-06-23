@@ -466,10 +466,12 @@ private function fetch_item_details($id, $type)
   public function my_courses_get() {
     $response = array();
     $auth_token = $_GET['auth_token'];
+    $child_id = $_GET['child_id'];
+
     $logged_in_user_details = json_decode($this->token_data_get($auth_token), true);
 
     if ($logged_in_user_details['user_id'] > 0) {
-      $response = $this->api_model->my_courses_get($logged_in_user_details['user_id']);
+      $response = $this->api_model->my_courses_get($logged_in_user_details['user_id'],$child_id);
     }else{
 
     }
