@@ -396,6 +396,23 @@ private function fetch_item_details($id, $type)
 }
 
 
+public function all_courses_by_insractor_get() {
+  $response = array();
+  $auth_token = $_GET['auth_token'];
+  $instractor_id= $_GET['instractor_id'];
+  $logged_in_user_details = json_decode($this->token_data_get2($auth_token), true);
+  
+  if (isset($logged_in_user_details['user_id']) && $logged_in_user_details['user_id'] > 0) {
+      $user_id = $logged_in_user_details['user_id'];
+      $response = $this->api_model->all_courses_by_insractor_get($user_id,$instractor_id);
+  } else {
+      $response = $this->api_model->all_courses_by_insractor_get("",$instractor_id);
+  }
+  
+  $this->set_response($response, REST_Controller::HTTP_OK);
+}
+
+
   
 
   // // For single device Login Api
