@@ -22,7 +22,7 @@ class Api_model extends CI_Model
 		if ($level_id != "") {
 			$this->db->where('sub_category_id', $level_id);
 		}
-		$this->db->where('is_top_course', 1);
+//		$this->db->where('is_top_course', 1);
 		$this->db->where('status', 'active');
 		$top_courses = $this->db->get('course')->result_array();
 		// This block of codes return the required data of courses
