@@ -222,7 +222,16 @@ class User_model extends CI_Model
 
     public function check_duplication($action = "", $email = "", $user_id = "")
     {
-        $duplicate_email_check = $this->db->get_where('users', array('email' => $email));
+        
+        $email_check = $email;
+
+        // Check if the email input is actually a phone number (contains only digits)
+        if (preg_match('/^\d+$/', $email_check)) {
+            // If it's a phone number, format it as phone@amr.com
+            $email_check = $email . '@amr.com';
+        }
+
+        $duplicate_email_check = $this->db->get_where('users', array('email' => $email_check));
 
         if ($action == 'on_create') {
             if ($duplicate_email_check->num_rows() > 0) {
