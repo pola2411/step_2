@@ -155,11 +155,11 @@ class Api_model extends CI_Model
 		$all_instructors = array();
 
 		$courses = $this->db->get()->result_array();
-		foreach ($courses as $key => $instructor) {
-			$all_instructors[$key] = $instructor;
-		}
+		$result = array();
+		$result = $this->course_data($courses);
+	
 
-		return $all_instructors;
+		return $result;
 	}
 	
 
