@@ -152,8 +152,14 @@ class Api_model extends CI_Model
 			$this->db->where('sub_category_id', $subcat);
 
 		}
+		$all_instructors = array();
+
 		$courses = $this->db->get()->result_array();
-		return $courses;
+		foreach ($courses as $key => $instructor) {
+			$all_instructors[$key] = $instructor;
+		}
+
+		return $all_instructors;
 	}
 	
 
