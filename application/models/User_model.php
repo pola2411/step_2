@@ -49,9 +49,20 @@ class User_model extends CI_Model
             $this->session->set_flashdata('error_message', get_phrase('email_duplication'));
         } else {
           //  $data['unique_identifier'] = 0;
+
+          $email = html_escape($this->input->post('email'));
+
+            // Check if the email input is actually a phone number (contains only digits)
+            if (preg_match('/^\d+$/', $email)) {
+                // If it's a phone number, format it as phone@amr.com
+                $email = $email . '@amr.com';
+            }
+
+            // Store the formatted email in the $data array
+            $data['email'] = $email;
             $data['first_name'] = html_escape($this->input->post('first_name'));
             $data['last_name'] = html_escape($this->input->post('last_name'));
-            $data['email'] = html_escape($this->input->post('email'));
+         //   $data['email'] = html_escape($this->input->post('email'));
             $data['password'] = sha1(html_escape($this->input->post('password')));
             $social_link['facebook'] = html_escape($this->input->post('facebook_link'));
             $social_link['twitter'] = html_escape($this->input->post('twitter_link'));
