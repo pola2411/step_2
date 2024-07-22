@@ -175,6 +175,11 @@ class Api extends REST_Controller {
        return $this->set_response($categories, REST_Controller::HTTP_OK);
     }
 
+    public function return_true_get() {
+      $categories = $this->api_model->return_true();
+       return $this->set_response($categories, REST_Controller::HTTP_OK);
+    }
+
 private function initialize_user_session($user, $app_url)
 {
     $this->session->set_userdata([

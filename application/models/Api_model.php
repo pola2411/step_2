@@ -88,6 +88,14 @@ class Api_model extends CI_Model
 		return $categories;
 	}
 
+
+	
+	public function return_true()
+	{
+	
+		return true;
+	}
+
 	public function all_instructor_get($user_id="") {
 		// Retrieve user details
 		$user = $this->crud_model->get_user_insta($user_id);
